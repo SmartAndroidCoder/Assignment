@@ -7,6 +7,7 @@ import com.shaadi.assignment.data.api.APIResult
 import com.shaadi.assignment.data.model.userMaches.Info
 import com.shaadi.assignment.data.model.userMaches.UsersResponse
 import com.shaadi.assignment.data.room.dao.UsersResponseDao
+import com.shaadi.assignment.ui.BaseActivity
 import kotlinx.coroutines.*
 import okhttp3.ResponseBody.Companion.toResponseBody
 import kotlin.coroutines.CoroutineContext
@@ -29,11 +30,11 @@ class MainRepositoryImp(
             override fun onActive() {
                 fetchUserJob?.let { job ->
                     CoroutineScope(backgroundContext + job).launch {
-
+//                        delay(10000)
                         val result: APIResult? = try {
                             //Data From LocaleDatabase
                             val users = usersResponseDao.getUsers()
-                            Log.d("Tag", "getUsers=====>${users.size}")
+                            Log.d(BaseActivity.TAG, "getUsers=====>${users.size}")
 
                             if (!users.isNullOrEmpty()) {
                                 APIResult.Success(
@@ -64,6 +65,12 @@ class MainRepositoryImp(
             }
         }
     }
+
+    // For updating user data
+    private suspend fun refreshUser(userCount: Int) {
+
+    }
+
 
     override fun updateStatus(email: String, status: Int): LiveData<APIResult> {
         updateUserJob = Job()

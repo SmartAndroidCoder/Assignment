@@ -1,11 +1,13 @@
 package com.shaadi.assignment.ui.main.viewmodel
 
+import android.util.Log
 import com.shaadi.assignment.data.api.APIResult
 import com.shaadi.assignment.data.model.BaseViewModel
 import com.shaadi.assignment.data.model.NavigateViewState
 import com.shaadi.assignment.data.model.ProcessLoadingState
 import com.shaadi.assignment.data.model.userMaches.UsersResponse
 import com.shaadi.assignment.data.repository.MainRepository
+import com.shaadi.assignment.ui.BaseActivity.Companion.TAG
 import com.shaadi.assignment.utils.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -17,11 +19,13 @@ class MainViewModel @Inject constructor(
     private val networkHelper: NetworkHelper
 ) : BaseViewModel() {
 
-
+init {
+    fetchUsers(10)
+}
     fun fetchUsers(userCount: Int) {
         loadingState.value = ProcessLoadingState.ShowLoading
         val source = mainRepository.getUsers(userCount)
-        navigateState.removeSource(source)
+//        navigateState.removeSource(source)
         navigateState.addSource(source) { result ->
             when (result) {
                 is APIResult.Success<*> -> {
@@ -44,7 +48,7 @@ class MainViewModel @Inject constructor(
 
         loadingState.value = ProcessLoadingState.ShowLoading
         val source = mainRepository.updateStatus(email, status)
-        navigateState.removeSource(source)
+//        navigateState.removeSource(source)
         navigateState.addSource(source) { result ->
             when (result) {
                 is APIResult.Success<*> -> {

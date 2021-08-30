@@ -45,4 +45,8 @@ abstract class BaseActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
+    companion object {
+        const val TAG = "ShaadiAssignment"
+    }
 }

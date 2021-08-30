@@ -31,7 +31,7 @@ class MainActivity : BaseActivity() {
     override fun initObservers() {
         mainViewModel.loading.observe(this, { loading(it) })
         mainViewModel.navigate.observe(this, { navigate(it) })
-        mainViewModel.fetchUsers(10)
+//        mainViewModel.fetchUsers(10)
     }
 
     override fun initDestroy() {
